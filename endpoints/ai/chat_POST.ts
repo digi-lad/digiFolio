@@ -36,7 +36,7 @@ export async function handle(request: Request) {
       },
       body: JSON.stringify({
         messages: messages,
-                model: "meta-llama/llama-4-maverick-17b-128e-instruct",
+                model: "openai/gpt-oss-120b",
         stream: true,
       }),
     });
