@@ -7,6 +7,8 @@ const app = new Hono();
 
 app.use('*', cors())
 
+app.get('/health', c => c.text('OK'))
+
 app.post('_api/ai/chat',async c => {
   try {
     const { handle } = await import("./endpoints/ai/chat_POST.js");
