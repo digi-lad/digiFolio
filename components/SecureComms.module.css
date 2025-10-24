@@ -1,0 +1,220 @@
+.container {
+  display: flex;
+  height: 100%;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-monospace);
+  overflow: hidden;
+}
+
+.leftPanel {
+  width: 30%;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  background-color: color-mix(in srgb, var(--surface) 70%, black);
+  border-right: 1px solid var(--border);
+}
+
+.rightPanel {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.panelTitle {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  padding: var(--spacing-3) var(--spacing-4);
+  margin: 0;
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase;
+}
+
+/* Directory */
+.directory {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.channelList {
+  list-style: none;
+  margin: 0;
+  padding: var(--spacing-2);
+}
+
+.channelButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: none;
+  border: none;
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--animation-duration-fast) ease, color var(--animation-duration-fast) ease;
+}
+
+.channelButton:hover:not(:disabled) {
+  background-color: var(--muted);
+  color: var(--accent);
+}
+
+.channelButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.channelButton .activeIndicator {
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity var(--animation-duration-fast) ease;
+  width: 1ch;
+}
+
+.channelButton.active {
+  background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+}
+
+.channelButton.active .activeIndicator {
+  opacity: 1;
+}
+
+/* CMD Input */
+.cmdInputWrapper {
+  padding: var(--spacing-3) var(--spacing-4);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.cmdLabel {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  display: block;
+  margin-bottom: var(--spacing-2);
+}
+
+.cmdInputContainer {
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  padding: var(--spacing-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.cmdPrompt {
+  color: var(--accent);
+  margin-right: var(--spacing-2);
+}
+
+.cmdInput {
+  flex-grow: 1;
+  background: none;
+  border: none;
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: 1rem;
+  caret-color: var(--accent);
+}
+
+.cmdInput:focus {
+  outline: none;
+}
+
+.cmdInput:disabled {
+  opacity: 0.5;
+}
+
+/* Terminal */
+.terminalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.terminalHeader .panelTitle {
+  border-bottom: none;
+  flex-grow: 1;
+}
+
+.skipButton {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: var(--spacing-3) var(--spacing-4);
+  transition: text-shadow var(--animation-duration-fast) ease;
+}
+
+.skipButton:hover {
+  text-shadow: 0 0 5px var(--accent);
+}
+
+.terminal {
+  flex-grow: 1;
+  background-color: #010101;
+  padding: var(--spacing-4);
+  overflow-y: auto;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.terminalLine {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.terminalLine.normal { color: var(--foreground); }
+.terminalLine.info { color: var(--muted-foreground); }
+.terminalLine.success { color: var(--success); }
+.terminalLine.error { color: var(--error); }
+.terminalLine.final {
+  font-size: 1.25rem;
+  color: var(--accent);
+  font-weight: 700;
+  margin: var(--spacing-2) 0;
+}
+
+.progressText {
+  color: var(--foreground);
+}
+
+.progressBar {
+  color: var(--accent);
+  margin-right: var(--spacing-2);
+}
+
+.actionButtonContainer {
+  margin-top: var(--spacing-4);
+  margin-bottom: var(--spacing-2);
+}
+
+.actionButton {
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: var(--spacing-2) var(--spacing-4);
+  font-family: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--animation-duration-fast) ease, color var(--animation-duration-fast) ease;
+  text-decoration: none;
+}
+
+.actionButton:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}

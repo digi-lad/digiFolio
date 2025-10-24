@@ -1,0 +1,332 @@
+.container {
+  background-color: var(--surface);
+  color: var(--foreground);
+  font-family: var(--font-family-base);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  background-color: color-mix(in srgb, var(--surface) 50%, black);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 2px solid var(--accent);
+  font-family: var(--font-family-monospace);
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.headerLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+}
+
+.headerLabel {
+  color: var(--accent);
+}
+
+.headerValue {
+  color: var(--foreground);
+}
+
+.separator {
+  color: var(--border);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.completed {
+  background-color: color-mix(in srgb, var(--success) 20%, transparent);
+  color: var(--success);
+}
+
+.active {
+  background-color: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent);
+}
+
+.timeframe {
+  font-family: var(--font-family-monospace);
+  color: var(--foreground);
+}
+
+.content {
+  padding: var(--spacing-4);
+  overflow-y: auto;
+  flex-grow: 1;
+  background-color: color-mix(in srgb, var(--surface) 50%, black);
+}
+
+.content::-webkit-scrollbar {
+  width: 6px;
+}
+.content::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--surface) 50%, black);
+}
+.content::-webkit-scrollbar-thumb {
+  background-color: var(--accent);
+  border-radius: var(--radius-full);
+}
+
+.section {
+  width: 100%;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-family: var(--font-family-monospace);
+  color: var(--accent);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+}
+
+.sectionHeader h3 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.sectionContent {
+  padding-left: calc(18px + var(--spacing-2));
+  padding-top: var(--spacing-3);
+  overflow: hidden;
+}
+
+.sectionContent[data-state='open'] {
+  animation: slideDown 0.3s ease;
+}
+
+.sectionContent[data-state='closed'] {
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideDown {
+  from { height: 0; }
+  to { height: var(--radix-collapsible-content-height); }
+}
+
+@keyframes slideUp {
+  from { height: var(--radix-collapsible-content-height); }
+  to { height: 0; }
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--border);
+  margin: var(--spacing-4) 0;
+}
+
+/* Boot Sequence */
+.bootSequenceText {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+
+/* Sys Specs */
+.specsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.specsList li {
+  position: relative;
+  padding-left: var(--spacing-4);
+  color: var(--surface-foreground);
+}
+
+.specsList li::before {
+  content: '●';
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+  top: 1px;
+}
+
+/* Build Log */
+.logContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.logEntry {
+  font-family: var(--font-family-monospace);
+  font-size: 0.9rem;
+  transition: background-color var(--animation-duration-fast) ease;
+  border-radius: var(--radius-sm);
+  background-color: color-mix(in srgb, var(--surface) 70%, black);
+  padding: var(--spacing-1) var(--spacing-2);
+}
+
+.logEntry:hover {
+  background-color: var(--surface);
+}
+
+.logTrigger {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  color: var(--foreground);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+.logEntry p {
+  margin: 0;
+  color: var(--foreground);
+}
+
+.logLabel {
+  color: var(--accent);
+  margin-right: var(--spacing-1);
+}
+
+.logDescContent {
+  overflow: hidden;
+}
+
+.logDescContent[data-state='open'] {
+  animation: slideDown 0.3s ease;
+}
+
+.logDescContent[data-state='closed'] {
+  animation: slideUp 0.3s ease;
+}
+
+.logDesc {
+  padding-left: calc(var(--spacing-2) + 1ch);
+  margin-top: var(--spacing-1) !important;
+  color: var(--muted-foreground);
+  padding: var(--spacing-1) var(--spacing-2);
+}
+
+/* UI Gallery */
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-4);
+}
+
+@media (max-width: 600px) {
+  .imageGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.imageThumbnailWrapper {
+  position: relative;
+  aspect-ratio: 16 / 10;
+}
+
+.imageSkeleton {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.imageButton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--animation-duration-normal) ease;
+}
+
+.imageButton:hover {
+  transform: scale(1.05);
+}
+
+.imageThumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--animation-duration-normal) ease;
+}
+
+.imageButton:hover .imageThumbnail {
+  border-color: var(--accent);
+}
+
+.imageFilename {
+  font-family: var(--font-family-monospace);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  margin-top: var(--spacing-1);
+}
+
+/* Access Points */
+.accessPointsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-3);
+}
+
+.accessPointLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  background-color: color-mix(in srgb, var(--surface) 70%, black);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--foreground);
+  text-decoration: none;
+  font-family: var(--font-family-monospace);
+  transition: color var(--animation-duration-fast) ease, border-color var(--animation-duration-fast) ease, background-color var(--animation-duration-fast) ease;
+}
+
+.accessPointLink:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background-color: var(--surface);
+}

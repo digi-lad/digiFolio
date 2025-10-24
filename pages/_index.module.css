@@ -1,0 +1,8 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #1E1F29;
+  color: #E0E0E0;
+  font-family: var(--font-family-monospace);
+}

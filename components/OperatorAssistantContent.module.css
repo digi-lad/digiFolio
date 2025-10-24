@@ -1,0 +1,145 @@
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-family: var(--font-family-monospace);
+  background-color: #282A36;
+  color: var(--foreground);
+}
+
+.messagesArea {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.messagesArea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messagesArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messagesArea::-webkit-scrollbar-thumb {
+  background: var(--muted);
+}
+
+.messageWrapper {
+  display: flex;
+  max-width: 85%;
+}
+
+.messageWrapper.user {
+  align-self: flex-end;
+  justify-content: flex-end;
+}
+
+.messageWrapper.ai,
+.messageWrapper.system {
+  align-self: flex-start;
+}
+
+.messageBubble {
+  background-color: #1A1B26;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.messagePrefix {
+  font-weight: 700;
+  margin-right: var(--spacing-2);
+}
+
+.messageWrapper.system .messagePrefix {
+  color: #8B8B8B;
+}
+
+.messageWrapper.user .messagePrefix {
+  color: #4A9EFF;
+}
+
+.messageWrapper.ai .messagePrefix {
+  color: #00FF41;
+}
+
+.messageText {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.analyzing {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.analyzing::after {
+  content: '▮';
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.inputArea {
+  display: flex;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-top: 1px solid var(--accent);
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+.inputField {
+  flex-grow: 1;
+  background-color: #1A1B26;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  padding: var(--spacing-2) var(--spacing-3);
+  font-family: var(--font-family-monospace);
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color var(--animation-duration-fast) ease;
+}
+
+.inputField:focus {
+  border-color: var(--accent);
+}
+
+.inputField::placeholder {
+  color: var(--muted-foreground);
+}
+
+.inputField:disabled {
+  opacity: 0.5;
+}
+
+.sendButton {
+  background-color: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: var(--spacing-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--animation-duration-fast) ease, color var(--animation-duration-fast) ease;
+}
+
+.sendButton:hover:not(:disabled) {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.sendButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

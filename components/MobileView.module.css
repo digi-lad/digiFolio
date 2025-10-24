@@ -1,0 +1,84 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #1E1F29;
+  color: #E0E0E0;
+  padding: var(--spacing-6);
+  overflow-y: auto;
+  font-family: var(--font-family-monospace);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+  border-bottom: 1px solid #D98A57;
+  padding-bottom: var(--spacing-4);
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: #D98A57;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.header p {
+  margin: var(--spacing-1) 0 0;
+  color: var(--muted-foreground);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.section {
+  background-color: #282A36;
+  border: 1px solid #D98A57;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  font-size: 1.1rem;
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: #282A36;
+  border-bottom: 1px solid #D98A57;
+  margin: 0;
+  color: #E0E0E0;
+}
+
+.sectionContent {
+  padding: var(--spacing-4);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.sectionContent :global(h3) {
+  color: #D98A57;
+  font-size: 1rem;
+  margin-top: var(--spacing-4);
+  margin-bottom: var(--spacing-2);
+}
+
+.sectionContent :global(p) {
+  margin: 0 0 var(--spacing-2);
+}
+
+.sectionContent :global(ul) {
+  padding-left: var(--spacing-4);
+  margin: 0;
+}
+
+.sectionContent :global(li) {
+  margin-bottom: var(--spacing-2);
+}
+
+.sectionContent :global(a) {
+  color: #D98A57;
+  text-decoration: underline;
+}

@@ -1,0 +1,327 @@
+.container {
+  background-color: var(--surface);
+  color: var(--foreground);
+  font-family: var(--font-family-monospace);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: color-mix(in srgb, var(--surface) 50%, black);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.clearanceBadge {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+
+
+.mainContent {
+  display: flex;
+  gap: var(--spacing-6);
+  padding: var(--spacing-6);
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.avatarSection {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.avatarWrapper {
+  width: 200px;
+  height: auto;
+  aspect-ratio: 4 / 6;
+  align-self: flex-start;
+  flex-shrink: 0;
+  position: relative;
+  background-color: color-mix(in srgb, var(--surface) 50%, black);
+  border: 1px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulseGlow 4s infinite ease-in-out;
+  overflow: hidden;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 8px 2px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 16px 4px color-mix(in srgb, var(--accent) 100%, transparent);
+  }
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--muted-foreground);
+  letter-spacing: 0.2em;
+}
+
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: color-mix(in srgb, var(--accent) 50%, transparent);
+  box-shadow: 0 0 5px var(--accent);
+  animation: scanLine 6s infinite linear;
+}
+
+@keyframes scanLine {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(300px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(310px);
+    opacity: 0;
+  }
+}
+
+.profileSection {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 10px 10px;
+  padding: var(--spacing-4);
+  border: 1px solid var(--border);
+  overflow-y: auto;
+}
+
+.profileField {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileField label {
+  color: var(--accent);
+  font-size: 0.8rem;
+  margin-bottom: var(--spacing-1);
+}
+
+.profileField p {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: 1rem;
+  color: var(--foreground);
+  min-height: 1.5em; /* Reserve space for text */
+  line-height: 1.5;
+}
+
+.bioText {
+  white-space: pre-wrap;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.2em;
+  background-color: var(--accent);
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: bottom;
+}
+
+@keyframes blink {
+  from, to { background-color: transparent; }
+  50% { background-color: var(--accent); }
+}
+
+.separator {
+  border-top: 1px dashed color-mix(in srgb, var(--accent) 30%, transparent);
+  margin: var(--spacing-1) 0;
+}
+
+.numberFlash {
+  animation: flash 0.5s 3;
+  color: var(--accent);
+}
+
+@keyframes flash {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+    text-shadow: 0 0 8px var(--accent);
+  }
+}
+
+.footer {
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: color-mix(in srgb, var(--surface) 50%, black);
+  border-top: 1px solid var(--border);
+  text-align: right;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.statusIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--success);
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--success);
+  border-radius: var(--radius-full);
+  animation: blinkStatus 1.5s infinite;
+}
+
+@keyframes blinkStatus {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.gallerySection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  border: 1px solid var(--border);
+  padding: var(--spacing-3);
+  background-color: color-mix(in srgb, var(--surface) 50%, black);
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+
+.galleryLabel {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.galleryGrid {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-2);
+  width: fit-content;
+  align-items: center;
+}
+
+.galleryThumbnail {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  position: relative;
+  transition: transform var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease;
+}
+
+.galleryThumbnail:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--accent) 60%, transparent);
+  border-color: var(--accent);
+}
+
+.galleryThumbnail:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.galleryThumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.plusButton {
+  width: 60px;
+  height: 60px;
+  border: 1px solid var(--border);
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  cursor: pointer;
+  transition: transform var(--animation-duration-fast) ease, box-shadow var(--animation-duration-fast) ease, background-color var(--animation-duration-fast) ease, border-color var(--animation-duration-fast) ease;
+  flex-shrink: 0;
+}
+
+.plusButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--accent) 60%, transparent);
+  border-color: var(--accent);
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.plusButton:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    flex-direction: column;
+  }
+
+  .avatarSection {
+    width: 100%;
+    align-items: center;
+  }
+
+  .avatarWrapper {
+    width: 150px;
+  }
+
+  .gallerySection {
+    width: 100%;
+    max-width: fit-content;
+  }
+
+  .galleryThumbnail {
+    width: 50px;
+    height: 50px;
+  }
+
+  .plusButton {
+    width: 50px;
+    height: 50px;
+    font-size: 0.875rem;
+  }
+}

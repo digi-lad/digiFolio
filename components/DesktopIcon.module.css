@@ -1,0 +1,54 @@
+.iconButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  background: none;
+  border: none;
+  color: #E0E0E0;
+  cursor: pointer;
+  padding: var(--spacing-2);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--animation-duration-fast) ease;
+  width: 100px;
+  text-align: center;
+}
+
+.iconButton:hover {
+  background-color: rgba(217, 138, 87, 0.1);
+}
+
+.iconButton:focus-visible {
+  outline: 1px solid #D98A57;
+  background-color: rgba(217, 138, 87, 0.2);
+}
+
+.iconWrapper {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  color: #E0E0E0;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.extension {
+  position: absolute;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #E0E0E0;
+  text-transform: uppercase;
+}
+
+.label {
+  font-family: var(--font-family-monospace);
+  font-size: 0.875rem;
+  word-break: break-word;
+}
