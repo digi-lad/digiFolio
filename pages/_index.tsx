@@ -32,6 +32,16 @@ const IndexPage = () => {
     }
   }, []);
 
+  // Ping backend to keep Render awake
+  useEffect(() => {
+    const pingBackend = () => {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || '/_api';
+      const healthUrl = baseUrl.replace('/_api', '/health');
+      fetch(healthUrl).catch(() => {});
+    };
+    pingBackend();
+  }, []);
+
   const handleBootComplete = () => {
     sessionStorage.setItem('bootComplete', 'true');
     setBootComplete(true);
