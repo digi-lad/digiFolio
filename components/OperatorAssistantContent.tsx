@@ -30,6 +30,7 @@ export const OperatorAssistantContent: React.FC<{ className?: string }> = ({ cla
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
+  const [isWakingUp, setIsWakingUp] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -40,6 +41,27 @@ export const OperatorAssistantContent: React.FC<{ className?: string }> = ({ cla
   useEffect(() => {
     scrollToBottom();
   }, [messages, isStreaming, scrollToBottom]);
+
+  // Wake up sequence
+  useEffect(() => {
+    const wakeUpAssistant = async () => {
+      try {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL || '/_api';
+        const healthUrl = baseUrl.replace('/_api', '/health');
+        const response = await fetch(healthUrl);
+        if (response.ok) {
+          setIsWakingUp(false);
+        } else {
+          // Retry after 1 second if health check fails
+          setTimeout(() => wakeUpAssistant(), 1000);
+        }
+      } catch (error) {
+        // Retry after 1 second on network errors
+        setTimeout(() => wakeUpAssistant(), 1000);
+      }
+    };
+    wakeUpAssistant();
+  }, []);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -183,12 +205,12 @@ export const OperatorAssistantContent: React.FC<{ className?: string }> = ({ cla
         <input
           type="text"
           className={styles.inputField}
-          placeholder="Type your query..."
+          placeholder={isWakingUp ? "Operator is waking up..." : "Type your query..."}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          disabled={isStreaming}
+          disabled={isStreaming || isWakingUp}
         />
-        <button type="submit" className={styles.sendButton} disabled={isStreaming || !inputValue.trim()} aria-label="Send Message">
+        <button type="submit" className={styles.sendButton} disabled={isStreaming || isWakingUp || !inputValue.trim()} aria-label="Send Message">
           <Send size={16} />
         </button>
       </form>
