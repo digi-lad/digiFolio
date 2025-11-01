@@ -17,6 +17,14 @@ export interface YearlyAchievements {
 
 export const ACHIEVEMENTS_DATA: YearlyAchievements = {
   "2025": {
+    Oct: [
+      {
+        title: "Gold Award, Senior Mathematical Challenge",
+        awardedBy:
+          "UK Math Trust",
+        tag: "International",
+      },
+    ]
     Sep: [
       {
         title: "Silver Medal, Vietnam Artificial Intelligence Championship",
