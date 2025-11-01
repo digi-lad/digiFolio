@@ -87,49 +87,60 @@ export const TECH_PROJECTS_DATA = {
     bootSequence:
       "An application designed to assist visually impaired students, particularly in Science subjects like Chemistry and Physics. Its core mission is to make visual information from textbook images accessible by converting them into detailed, step-by-step audio descriptions using AI. The app aims to provide not just a description, but also explanations and context, acting like a virtual teacher guiding the student through the image.",
     sysSpecs: [
-      "HTML5, CSS3, JavaScript for frontend",
-      "Node.js with Express for backend",
-      "Deployed on Vercel (frontend) and Render (backend)",
+      "HTML5, CSS3, and Vanilla JavaScript for frontend",
+      "Python, Flask for backend",
+      "Deployed on Render and used UptimeRobot for pinging the service",
       "AI Model: Google Gemini 2.5 Flash Lite",
-      "UptimeRobot for pinging the backend service",
     ],
     buildLog: [
       {
-        title: "AI-Powered Image Description",
-        desc: "Leverages Gemini Vision to generate detailed, context-aware descriptions and explanations of scientific images",
+        title: "Dual Mode Operation",
+        desc: "Offers TalkBack mode with ArUco marker detection for guided capture, and Non-TalkBack mode with native camera for quick one-tap capture",
       },
       {
-        title: "Accessibility First UI",
-        desc: "Features a high-contrast, full-screen interface designed for ease of use. Interaction is primarily touch-based",
+        title: "Intelligent Image Processing",
+        desc: "Automatically detects ArUco markers, extracts and flattens images, checks for blur and lighting quality, and enhances images with poor lighting using CLAHE",
       },
       {
-        title: "Gesture-Based Audio Control",
-        desc: "Allows users to control the audio playback using intuitive gestures",
+        title: "Multi-Language Support",
+        desc: "Supports 5 languages (Vietnamese, English, Chinese, Hindi, Spanish) with AI responses delivered in the user's preferred language",
       },
       {
-        title: "Synchronized Auto-Scrolling Text",
-        desc: "The description text automatically scrolls in sync with the audio playback for users with partial vision",
-      },
-      {
-        title: "Native Text-to-Speech",
-        desc: "Uses the browser's built-in speechSynthesis API, taking advantage of potentially pre-installed high-quality voices on the user's device",
+        title: "Accessibility-First Design",
+        desc: "Features comprehensive ARIA attributes, TalkBack-optimized navigation, and high-contrast full-screen interface.",
       },
     ],
     accessPoints: [
-      { label: "Web App", url: "https://tavis-chem-scribe-lite.vercel.app/" },
+      { label: "Web App", url: "https://tavis-scilens.onrender.com/" },
       {
         label: "GitHub",
-        url: "https://github.com/digi-lad/TAVIS_ChemScribe_Lite",
+        url: "https://github.com/digi-lad/TAVIS-SciLens",
       },
     ],
     images: [
       {
-        filename: "Interface (Touch to Capture)",
-        url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1761228638/z7148606887016_a7aed02fce3d2b74370c7bd0ab70a7a7_b36hhq.jpg",
+        filename: "Choose Language",
+        url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1762020186/Screenshot_2025-11-02_010202_pggpnm.png",
       },
       {
-        filename: "Use demo",
-        url: "https://res.cloudinary.com/ducrwqhit/video/upload/v1761228648/7148610251572_inbp4n.mp4",
+        filename: "Choose TalkBack or Non-TalkBack Mode",
+        url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1762020186/Screenshot_2025-11-02_010212_xsobfz.png",
+      },
+      {
+        filename: "Tap to Capture",
+        url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1762020185/Screenshot_2025-11-02_010220_hgt0bq.png",
+      },
+      {
+        filename: "Processing Image",
+        url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1762020184/Screenshot_2025-11-02_010225_qltttd.png",
+      },
+      {
+        filename: "Processed Description",
+        url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1762020186/Screenshot_2025-11-02_010234_v7qo3w.png",
+      },
+      {
+        filename: "Demo",
+        url: "https://res.cloudinary.com/ducrwqhit/video/upload/v1762020189/7179767584043_cucsfv.mp4",
       },
     ] as Array<{ filename: string; url: string }>,
   },
