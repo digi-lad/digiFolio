@@ -24,7 +24,7 @@ export const ACHIEVEMENTS_DATA: YearlyAchievements = {
           "UK Math Trust",
         tag: "International",
       },
-    ]
+    ],
     Sep: [
       {
         title: "Silver Medal, Vietnam Artificial Intelligence Championship",
