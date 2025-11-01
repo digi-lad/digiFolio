@@ -289,7 +289,7 @@ const desktopIcons: DesktopIconConfig[] = [
     label: "RESUME.pdf",
     icon: ICON_URLS.cv as any,
     externalUrl:
-      "https://drive.google.com/file/d/1wYL16KXvZqdAizLiNlmeCRFI0VIC-Ahn/view?usp=sharing",
+      "https://drive.google.com/file/d/1VT5y9VedovUcUyIwK6skPES53Tvs6JfX/view?usp=sharing",
   },
   {
     id: "ALGORITHM_SANDBOX",
