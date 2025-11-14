@@ -111,10 +111,10 @@ export const TECH_PROJECTS_DATA = {
       },
     ],
     accessPoints: [
-      { label: "Web App", url: "https://tavis-scilens.onrender.com/" },
+      { label: "Web App", url: "https://tavis-stem-lens.onrender.com/" },
       {
         label: "GitHub",
-        url: "https://github.com/digi-lad/TAVIS-SciLens",
+        url: "https://github.com/digi-lad/TAVIS-STEM-Lens",
       },
     ],
     images: [
