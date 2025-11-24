@@ -17,6 +17,13 @@ export interface YearlyAchievements {
 
 export const ACHIEVEMENTS_DATA: YearlyAchievements = {
   "2025": {
+    Nov: [
+      {
+        title: "Gold Honour (1st National & 2nd International), International Computer Science Competition",
+        tag: "International",
+        highlighted: true,
+      }
+    ]
     Oct: [
       {
         title: "Gold Award, Senior Mathematical Challenge",
