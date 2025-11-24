@@ -23,7 +23,7 @@ export const ACHIEVEMENTS_DATA: YearlyAchievements = {
         tag: "International",
         highlighted: true,
       }
-    ]
+    ],
     Oct: [
       {
         title: "Gold Award, Senior Mathematical Challenge",
