@@ -11,7 +11,7 @@ const ICONS_MAP: { [key: string]: React.ElementType } = {
   SECURE_COMMS: Mail,
   ScamDetector: FileText,
   GNN_Vulnerability: FileText,
-  TAVIS_SciLens: FileText,
+  TAVIS_STEM_Lens: FileText,
   digiLQD: FileText,
   digiHere: FileText,
   digiCherish: FileText,

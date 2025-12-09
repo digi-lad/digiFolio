@@ -32,7 +32,7 @@ export type WindowId =
   | "IMAGE_LOG"
   | "ScamDetector"
   | "GNN_Vulnerability"
-  | "TAVIS_SciLens"
+  | "TAVIS_STEM_Lens"
   | "digiLQD"
   | "digiHere"
   | "digiCherish"
@@ -171,11 +171,11 @@ const windows: Record<WindowId, WindowConfig> = {
     initialPosition: { x: 500, y: 150 },
     initialSize: { width: 1050, height: 600 },
   },
-  TAVIS_SciLens: {
-    id: "TAVIS_SciLens",
-    title: "TAVIS SciLens",
-    iconId: "TAVIS_SciLens",
-    content: () => <ProjectShowcase {...PROJECT_DATA.TAVIS_SciLens} />,
+  TAVIS_STEM_Lens: {
+    id: "TAVIS_STEM_Lens",
+    title: "TAVIS STEM Lens",
+    iconId: "TAVIS_STEM_Lens",
+    content: () => <ProjectShowcase {...PROJECT_DATA.TAVIS_STEM_Lens} />,
     initialPosition: { x: 400, y: 120 },
     initialSize: { width: 1050, height: 600 },
   },

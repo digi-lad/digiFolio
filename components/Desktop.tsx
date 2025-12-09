@@ -33,7 +33,7 @@ const ICONS_MAP: { [key: string]: React.ElementType } = {
   ALGORITHM_SANDBOX: Network,
   ScamDetector: FileText,
   GNN_Vulnerability: FileText,
-  TAVIS_SciLens: FileText,
+  TAVIS_STEM_Lens: FileText,
   digiLQD: FileText,
   digiHere: FileText,
   digiCherish: FileText,

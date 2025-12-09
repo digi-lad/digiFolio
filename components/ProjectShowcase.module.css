@@ -75,6 +75,7 @@
   overflow-y: auto;
   flex-grow: 1;
   background-color: color-mix(in srgb, var(--surface) 50%, black);
+  min-width: 0;
 }
 
 .content::-webkit-scrollbar {
@@ -238,8 +239,9 @@
 /* UI Gallery */
 .imageGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-4);
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-3);
+  width: 100%;
 }
 
 @media (max-width: 600px) {
@@ -250,7 +252,9 @@
 
 .imageThumbnailWrapper {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 1 / 1;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .imageSkeleton {
@@ -270,7 +274,7 @@
   padding: 0;
   cursor: pointer;
   width: 100%;
-  height: 100%;
+  height: auto;
   transition: transform var(--animation-duration-normal) ease;
 }
 
@@ -280,7 +284,7 @@
 
 .imageThumbnail {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);

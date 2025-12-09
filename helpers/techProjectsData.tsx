@@ -79,7 +79,7 @@ export const TECH_PROJECTS_DATA = {
       },
     ] as Array<{ filename: string; url: string }>,
   },
-  TAVIS_SciLens: {
+  TAVIS_STEM_Lens: {
     name: "TAVIS STEM Lens",
     type: "Assistive Application",
     status: "ACTIVE" as const,

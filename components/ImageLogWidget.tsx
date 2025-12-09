@@ -70,22 +70,22 @@ export const imageLogData: MediaItem[] = [
     type: "image",
   },
   {
-    filename: "'HEY DONT BUMP INTO ME!'",
+    filename: "'HEY DONT BUMP INTO ME!",
     url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1761299077/z7151076189576_6b1201dead989ddaa9170725842be830_qqmd0o.jpg",
     type: "image",
   },
   {
-    filename: "Fatal accident X-X!'",
+    filename: "Fatal accident X-X!",
     url: "https://res.cloudinary.com/ducrwqhit/video/upload/v1761315985/7152243742919_fitlqe.mp4",
     type: "video",
   },
   {
-    filename: "Last party!'",
+    filename: "Last party!",
     url: "https://res.cloudinary.com/ducrwqhit/video/upload/v1761315985/7151080097907_cbkbxz.mp4",
     type: "video",
   },
   {
-    filename: "At the train station!'",
+    filename: "At the train station!",
     url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1761318728/z7152365263776_f9e243a79c6780c66e587fd62c2258f9_lj7r4l.jpg",
     type: "image",
   },

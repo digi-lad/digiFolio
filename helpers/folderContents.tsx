@@ -2,7 +2,7 @@ export const FOLDER_CONTENTS = {
   PROJECT_ARCHIVES: [
     { id: "ScamDetector", label: "digiSecure\n.app" },
     { id: "GNN_Vulnerability", label: "GNN.study" },
-    { id: "TAVIS_SciLens", label: "TAVIS\nSciLens\n.app" },
+    { id: "TAVIS_STEM_Lens", label: "TAVIS\nSTEM Lens\n.app" },
     { id: "digiLQD", label: "digiLQD\n.app" },
     { id: "digiHere", label: "digiHere\n.app" },
     { id: "digiCherish", label: "digi\nCherish\n.app" },
