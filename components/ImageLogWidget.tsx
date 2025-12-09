@@ -10,6 +10,31 @@ interface MediaItem {
 
 export const imageLogData: MediaItem[] = [
   {
+    filename: "Me with my mentor, at Huynh De Nhu Nghia Support Center for the visually impaired.",
+    url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1765288904/z7229767349808_94688ac7f69c666301e56fa9bc346dae_ev2v6e.jpg",
+    type: "image",
+  },
+  {
+    filename: "We piloted an assistive tool I built.",
+    url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1765288509/z7229767437176_ebe97f7eb9981429deb0498984826fd9_bd4fhe.jpg",
+    type: "image",
+  },
+  {
+    filename: "Piloting TAVIS STEM Lens at Nguyen Dinh Chieu Specialized School for the visually impaired.",
+    url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1765288899/z7131564227583_86adaf3271c242448e5974da3de1ae0b_mwkwj4.jpg",
+    type: "image",
+  },
+  {
+    filename: "The kids were leading me to their home.",
+    url: "https://res.cloudinary.com/ducrwqhit/video/upload/v1765288902/7131564576688_prxsoc.mp4",
+    type: "video",
+  },
+  {
+    filename: "I am amazed by their gifts in music, despite their visual impairment.",
+    url: "https://res.cloudinary.com/ducrwqhit/video/upload/v1765288909/7131564557083_usyxpo.mp4",
+    type: "video",
+  },
+  {
     filename: "Summer in Engineering and Applied Science!",
     url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1761299070/z7151076073018_8511a0e48b7ed3c97971a3e526a8dc07_lzg8yk.jpg",
     type: "image",

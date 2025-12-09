@@ -80,12 +80,12 @@ export const TECH_PROJECTS_DATA = {
     ] as Array<{ filename: string; url: string }>,
   },
   TAVIS_SciLens: {
-    name: "TAVIS SciLens - Science Lens",
-    type: "Exclusive Web Application",
+    name: "TAVIS STEM Lens",
+    type: "Assistive Application",
     status: "ACTIVE" as const,
     timeframe: "2025-?",
     bootSequence:
-      "An application designed to assist visually impaired students, particularly in Science subjects like Chemistry and Physics. Its core mission is to make visual information from textbook images accessible by converting them into detailed, step-by-step audio descriptions using AI. The app aims to provide not just a description, but also explanations and context, acting like a virtual teacher guiding the student through the image.",
+      "An application designed to assist visually impaired students, particularly in STEM subjects like Chemistry and Physics. Its core mission is to make visual information from textbook images accessible by converting them into detailed, step-by-step audio descriptions using AI. The app aims to provide not just a description, but also explanations and context, acting like a virtual teacher guiding the student through the image.",
     sysSpecs: [
       "HTML5, CSS3, and Vanilla JavaScript for frontend",
       "Python, Flask for backend",
@@ -119,8 +119,16 @@ export const TECH_PROJECTS_DATA = {
     ],
     images: [
       {
-        filename: "Choose Language",
-        url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1762020186/Screenshot_2025-11-02_010202_pggpnm.png",
+        filename: "Piloting at Huynh De Nhu Nghia Support Center for Visually Impaired Students",
+        url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1765288509/z7229767437176_ebe97f7eb9981429deb0498984826fd9_bd4fhe.jpg",
+      },
+      {
+        filename: "Piloting at Nguyen Dinh Chieu Specialized School",
+        url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1765288508/z7131564229980_6866a206707c85a1673778fa5e13ddf4_qy1uxf.jpg",
+      },
+      {
+        filename: "Piloting at Nguyen Dinh Chieu Specialized School",
+        url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1765288509/z7131564226725_fe7badd3d3ce3f1238ad74d049cb13f1_xorotj.jpg",
       },
       {
         filename: "Choose TalkBack or Non-TalkBack Mode",
