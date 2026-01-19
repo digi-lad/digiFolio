@@ -20,6 +20,7 @@ import {
   Award,
   Bot,
   Network,
+  PlaySquare,
 } from "lucide-react";
 import { OperatorAssistant } from "./OperatorAssistant";
 
@@ -31,6 +32,7 @@ const ICONS_MAP: { [key: string]: React.ElementType } = {
   SECURE_COMMS: Mail,
   OPERATOR_ASSISTANT: Bot,
   ALGORITHM_SANDBOX: Network,
+  VIDEO_PLAYER: PlaySquare,
   ScamDetector: FileText,
   GNN_Vulnerability: FileText,
   TAVIS_STEM_Lens: FileText,

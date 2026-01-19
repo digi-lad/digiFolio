@@ -10,4 +10,5 @@ export const ICON_URLS = {
   algorithm:
     "https://res.cloudinary.com/ducrwqhit/image/upload/v1761140988/802668d199156470952e88eac87ad948_rxlpnu.png",
   cv: "https://res.cloudinary.com/ducrwqhit/image/upload/v1761139921/file_dwfhfa.png",
+  video: "https://res.cloudinary.com/ducrwqhit/image/upload/v1768834527/VideoLogo_slxtlw.png",
 };

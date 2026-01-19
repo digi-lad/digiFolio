@@ -10,6 +10,31 @@ interface MediaItem {
 
 export const imageLogData: MediaItem[] = [
   {
+    filename: "Student Council. 2026 Le Quy Don Traditional Camp Day.",
+    url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1768835399/z7447833023611_dcd032aa8839058ab665388bac5423ca_ozavq1.jpg",
+    type: "image",
+  },
+  {
+    filename: "Loooook how chaotic it is!",
+    url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1768835422/z7447833047196_82ab142af56f6c562a3b43d1eaa4648f_hqxha0.jpg",
+    type: "image",
+  },
+  {
+    filename: "Here comes the fire!",
+    url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1768835395/z7447833040561_065145f64fc5e4fcf1c33dc6ee947d47_gxc19i.jpg",
+    type: "image",
+  },
+  {
+    filename: "Woo! Hot!",
+    url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1768835395/z7447833022674_12a11bbc4c6b9b9ec2e387d3ed258551_vbfln4.jpg",
+    type: "image",
+  },
+  {
+    filename: "Bird view!",
+    url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1768836449/DJI_20260109231406_0190_D_KHANH-2_p0wj3g.jpg",
+    type: "image",
+  },
+  {
     filename: "Me with my mentor, at Huynh De Nhu Nghia Support Center for the visually impaired.",
     url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1765288904/z7229767349808_94688ac7f69c666301e56fa9bc346dae_ev2v6e.jpg",
     type: "image",

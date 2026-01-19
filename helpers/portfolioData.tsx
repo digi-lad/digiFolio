@@ -10,6 +10,7 @@ import { OperatorDossier } from "../components/OperatorDossier";
 import { OperatorAssistantContent } from "../components/OperatorAssistantContent";
 import { SecureComms } from "../components/SecureComms";
 import { ShortestPathGame } from "../components/ShortestPathGame";
+import { VideoPlayer } from "../components/VideoPlayer";
 import { PROFILE_DATA } from "../helpers/profileData";
 import { ACHIEVEMENTS_DATA } from "../helpers/achievementsData";
 import { CONTACT_CHANNELS } from "../helpers/contactData";
@@ -30,6 +31,7 @@ export type WindowId =
   | "OPERATOR_ASSISTANT"
   | "ALGORITHM_SANDBOX"
   | "IMAGE_LOG"
+  | "VIDEO_PLAYER"
   | "ScamDetector"
   | "GNN_Vulnerability"
   | "TAVIS_STEM_Lens"
@@ -147,6 +149,15 @@ const windows: Record<WindowId, WindowConfig> = {
     content: () => <ShortestPathGame />,
     initialPosition: { x: 250, y: 80 },
     initialSize: { width: 900, height: 600 },
+  },
+  VIDEO_PLAYER: {
+    id: "VIDEO_PLAYER",
+    title: "20m2",
+    iconId: "VIDEO_PLAYER",
+    customIconUrl: "https://res.cloudinary.com/ducrwqhit/image/upload/v1768834527/VideoLogo_slxtlw.png",
+    content: () => <VideoPlayer />,
+    initialPosition: { x: 300, y: 120 },
+    initialSize: { width: 920, height: 650 },
   },
   IMAGE_LOG: {
     id: "IMAGE_LOG",
@@ -295,6 +306,11 @@ const desktopIcons: DesktopIconConfig[] = [
     id: "ALGORITHM_SANDBOX",
     label: "ALGO.exe",
     icon: ICON_URLS.algorithm as any,
+  },
+  {
+    id: "VIDEO_PLAYER",
+    label: "20m2.mp4",
+    icon: ICON_URLS.video as any,
   },
 ];
 

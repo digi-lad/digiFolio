@@ -23,5 +23,13 @@ export const PROFILE_DATA = {
       filename: "[2025] Le Quy Don Camp Day",
       url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1761196906/z7146779415543_cd35ae02bc4354b88273c6237f4bf2d5_cwpv3y.jpg",
     },
+    {
+      filename: "[2026] Le Quy Don Camp Day",
+      url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1768835395/z7447832997230_99172298e4a2efbfb4906ef486193315_bnuabi.jpg",
+    },
+    {
+      filename: "[2026] Le Quy Don Camp Day",
+      url: "https://res.cloudinary.com/ducrwqhit/image/upload/v1768835393/z7447833004860_3338474f88717a22c26883acecd18aa6_bqzye2.jpg",
+    },
   ],
 };
