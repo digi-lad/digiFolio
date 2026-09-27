@@ -9,7 +9,21 @@ export default {
     { name: 'ielts', title: 'IELTS', type: 'string' },
     { name: 'bio', title: 'Bio', type: 'text' },
     { name: 'avatarUrl', title: 'Avatar URL', type: 'url' },
-    { name: 'resumeUrl', title: 'Resume PDF URL', type: 'url' },
+    { name: 'resumeUrl', title: 'Resume PDF URL (Legacy)', type: 'url' },
+    {
+      name: 'resumes',
+      title: 'Resumes / CVs',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'type', title: 'CV Type (e.g., General, SWE, Research)', type: 'string' },
+            { name: 'url', title: 'PDF URL', type: 'url' }
+          ]
+        }
+      ]
+    },
     {
       name: 'gallery',
       title: 'Gallery',
