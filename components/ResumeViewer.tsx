@@ -65,7 +65,9 @@ export const ResumeViewer: React.FC = () => {
         </div>
       )}
       <div className={styles.iframeWrapper}>
-        <iframe src={pdfUrl} className={styles.iframe} title={`Resume - ${selectedResume.type}`} />
+        <object data={pdfUrl} type="application/pdf" className={styles.iframe} aria-label={`Resume - ${selectedResume.type}`}>
+          <p className={styles.fallbackText}>Your browser does not support viewing PDFs natively. <a href={pdfUrl} target="_blank" rel="noopener noreferrer">Click here to download it</a>.</p>
+        </object>
       </div>
     </div>
   );
