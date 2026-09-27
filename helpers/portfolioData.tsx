@@ -173,7 +173,7 @@ const windows: Record<WindowId, WindowConfig> = {
     title: "RESUME.pdf",
     content: () => <ResumeViewer />,
     initialPosition: { x: 150, y: 50 },
-    initialSize: { width: 850, height: 750 },
+    initialSize: { width: 560, height: 800 },
   },
   ScamDetector: {
     id: "ScamDetector",

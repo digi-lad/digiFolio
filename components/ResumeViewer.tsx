@@ -99,13 +99,6 @@ export const ResumeViewer: React.FC = () => {
             ))}
           </div>
         )}
-        <div className={styles.headerActions}>
-          {originalPdfUrl && (
-            <a href={originalPdfUrl} target="_blank" rel="noopener noreferrer" className={styles.downloadButton}>
-              Download PDF
-            </a>
-          )}
-        </div>
       </div>
       <div className={styles.iframeWrapper}>
         {isBlobLoading ? (
