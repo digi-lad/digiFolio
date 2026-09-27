@@ -43,15 +43,45 @@ export const ResumeViewer: React.FC = () => {
   }
 
   const selectedResume = resumes[selectedIndex] || resumes[0];
-  let originalPdfUrl = selectedResume.fileUrl || selectedResume.url || "";
+  let originalPdfUrl = selectedResume?.fileUrl || selectedResume?.url || "";
   
-  // Always use Google Docs viewer for embedding to guarantee it never shows a black screen
+  // Format Google Drive links as fallback
   let embedUrl = originalPdfUrl;
   if (embedUrl.includes("drive.google.com") && embedUrl.includes("/view")) {
     embedUrl = embedUrl.replace("/view?usp=sharing", "/preview");
-  } else if (originalPdfUrl && (originalPdfUrl.endsWith(".pdf") || originalPdfUrl.includes("cdn.sanity.io"))) {
-    embedUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(originalPdfUrl)}&embedded=true`;
   }
+
+  // Fetch Sanity PDFs as blobs to guarantee Native Viewer bypasses any CSP
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
+  const [isBlobLoading, setIsBlobLoading] = useState(false);
+
+  React.useEffect(() => {
+    if (originalPdfUrl && originalPdfUrl.includes("cdn.sanity.io")) {
+      setIsBlobLoading(true);
+      fetch(originalPdfUrl)
+        .then(res => res.blob())
+        .then(blob => {
+          const pdfBlob = new Blob([blob], { type: 'application/pdf' });
+          const url = URL.createObjectURL(pdfBlob);
+          setBlobUrl(url);
+          setIsBlobLoading(false);
+        })
+        .catch(err => {
+          console.error("Failed to fetch PDF blob:", err);
+          setIsBlobLoading(false);
+        });
+    } else {
+      setBlobUrl(null);
+    }
+
+    return () => {
+      if (blobUrl) {
+        URL.revokeObjectURL(blobUrl);
+      }
+    };
+  }, [originalPdfUrl]);
+
+  const displayUrl = blobUrl || embedUrl;
 
   return (
     <div className={styles.container}>
@@ -70,14 +100,22 @@ export const ResumeViewer: React.FC = () => {
           </div>
         )}
         <div className={styles.headerActions}>
-          <a href={originalPdfUrl} target="_blank" rel="noopener noreferrer" className={styles.downloadButton}>
-            Download PDF
-          </a>
+          {originalPdfUrl && (
+            <a href={originalPdfUrl} target="_blank" rel="noopener noreferrer" className={styles.downloadButton}>
+              Download PDF
+            </a>
+          )}
         </div>
       </div>
       <div className={styles.iframeWrapper}>
-        {embedUrl ? (
-          <iframe src={embedUrl} className={styles.iframe} title={`Resume - ${selectedResume?.type}`} />
+        {isBlobLoading ? (
+           <div className={styles.loadingContainer}>
+             <span className={styles.loadingText}>[INITIALIZING NATIVE VIEWER...]</span>
+           </div>
+        ) : displayUrl ? (
+          <object data={displayUrl} type="application/pdf" className={styles.iframe} aria-label={`Resume - ${selectedResume?.type}`}>
+            <p className={styles.fallbackText}>Your browser does not support viewing PDFs natively. <a href={originalPdfUrl} target="_blank" rel="noopener noreferrer">Click here to download it</a>.</p>
+          </object>
         ) : (
           <div className={styles.loadingContainer}>
             <span className={styles.loadingText}>[NO PDF CONFIGURED]</span>
