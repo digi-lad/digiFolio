@@ -19,7 +19,8 @@ export default {
           type: 'object',
           fields: [
             { name: 'type', title: 'CV Type (e.g., General, SWE, Research)', type: 'string' },
-            { name: 'url', title: 'PDF URL', type: 'url' }
+            { name: 'file', title: 'Upload PDF File (Recommended for native viewer)', type: 'file', options: { accept: 'application/pdf' } },
+            { name: 'url', title: 'External PDF URL (Fallback, e.g. Google Drive)', type: 'url' }
           ]
         }
       ]

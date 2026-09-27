@@ -5,7 +5,8 @@ import styles from './ResumeViewer.module.css';
 
 interface ResumeType {
   type: string;
-  url: string;
+  url?: string;
+  fileUrl?: string;
 }
 
 export const ResumeViewer: React.FC = () => {
@@ -14,7 +15,13 @@ export const ResumeViewer: React.FC = () => {
   const { data: profileData, isLoading } = useQuery({
     queryKey: ['profile'],
     queryFn: async () => {
-      return sanityClient.fetch(`*[_type == "profile"][0]`);
+      return sanityClient.fetch(`*[_type == "profile"][0]{
+        ...,
+        resumes[]{
+          ...,
+          "fileUrl": file.asset->url
+        }
+      }`);
     }
   });
 
@@ -36,7 +43,7 @@ export const ResumeViewer: React.FC = () => {
   }
 
   const selectedResume = resumes[selectedIndex] || resumes[0];
-  let pdfUrl = selectedResume.url;
+  let pdfUrl = selectedResume.fileUrl || selectedResume.url || "";
   
   if (pdfUrl.includes("drive.google.com") && pdfUrl.includes("/view")) {
     pdfUrl = pdfUrl.replace("/view?usp=sharing", "/preview");
