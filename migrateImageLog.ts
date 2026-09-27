@@ -78,9 +78,22 @@ const imageLogData = [
 
 async function migrateImages() {
   console.log("🚀 Starting migration of Image Log to Sanity...");
-  let successCount = 0;
 
-  for (const img of imageLogData) {
+  console.log("🧹 Deleting all existing imageLog documents...");
+  try {
+    await client.delete({query: '*[_type == "imageLog"]'});
+    console.log("✅ Successfully deleted existing imageLog documents.");
+  } catch (err) {
+    console.error("❌ Failed to delete existing documents:", err.message);
+  }
+
+  let successCount = 0;
+  
+  // Reverse the array so the first item in the local array is uploaded last.
+  // This gives it the newest _createdAt timestamp, so it shows up first when sorting by _createdAt desc.
+  const reversedData = [...imageLogData].reverse();
+
+  for (const img of reversedData) {
     try {
       const doc = {
         _type: 'imageLog',
@@ -91,7 +104,7 @@ async function migrateImages() {
       await client.create(doc);
       console.log(`✅ Uploaded: ${img.filename}`);
       successCount++;
-    } catch (err) {
+    } catch (err: any) {
       console.error(`❌ Failed to upload ${img.filename}:`, err.message);
     }
   }
