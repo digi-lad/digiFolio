@@ -11,6 +11,7 @@ import { OperatorAssistantContent } from "../components/OperatorAssistantContent
 import { SecureComms } from "../components/SecureComms";
 import { ShortestPathGame } from "../components/ShortestPathGame";
 import { VideoPlayer } from "../components/VideoPlayer";
+import { ResumeViewer } from "../components/ResumeViewer";
 
 
 
@@ -43,7 +44,8 @@ export type WindowId =
   | "Green_Vietnam"
   | "Traditional_Camp"
   | "Club_Fair"
-  | "Prom";
+  | "Prom"
+  | "RESUME_VIEWER";
 
 // ============================================================================
 // INTERFACES
@@ -165,6 +167,13 @@ const windows: Record<WindowId, WindowConfig> = {
     content: () => <ImageLogGrid />,
     initialPosition: { x: 300, y: 100 },
     initialSize: { width: 900, height: 600 },
+  },
+  RESUME_VIEWER: {
+    id: "RESUME_VIEWER",
+    title: "RESUME.pdf",
+    content: () => <ResumeViewer />,
+    initialPosition: { x: 150, y: 50 },
+    initialSize: { width: 850, height: 750 },
   },
   ScamDetector: {
     id: "ScamDetector",

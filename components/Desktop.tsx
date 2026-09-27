@@ -257,11 +257,7 @@ export const Desktop: React.FC<{
             type={icon.type}
             onClick={() => {
               if (icon.id === 'CV_LINK') {
-                if (profileData?.resumeUrl) {
-                  window.open(profileData.resumeUrl, "_blank", "noopener,noreferrer");
-                } else if (icon.externalUrl) {
-                  window.open(icon.externalUrl, "_blank", "noopener,noreferrer");
-                }
+                openWindow("RESUME_VIEWER");
               } else if (icon.externalUrl) {
                 window.open(icon.externalUrl, "_blank", "noopener,noreferrer");
               } else {
