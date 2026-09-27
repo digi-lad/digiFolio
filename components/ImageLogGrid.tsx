@@ -20,7 +20,7 @@ export const ImageLogGrid: React.FC<ImageLogGridProps> = ({ className }) => {
   const { data: images = [], isLoading } = useQuery({
     queryKey: ['imageLog'],
     queryFn: async () => {
-      const result = await sanityClient.fetch(`*[_type == "imageLog"] | order(_createdAt desc)`);
+      const result = await sanityClient.fetch(`*[_type == "imageLog"] | order(_createdAt asc)`);
       return result as MediaItem[];
     }
   });
