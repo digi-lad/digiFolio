@@ -47,14 +47,16 @@ export const ResumeViewer: React.FC = () => {
   const [isBlobLoading, setIsBlobLoading] = useState(false);
 
   React.useEffect(() => {
+    let activeBlobUrl: string | null = null;
+
     if (originalPdfUrl && originalPdfUrl.includes("cdn.sanity.io")) {
       setIsBlobLoading(true);
       fetch(originalPdfUrl)
         .then(res => res.blob())
         .then(blob => {
           const pdfBlob = new Blob([blob], { type: 'application/pdf' });
-          const url = URL.createObjectURL(pdfBlob);
-          setBlobUrl(url);
+          activeBlobUrl = URL.createObjectURL(pdfBlob);
+          setBlobUrl(activeBlobUrl);
           setIsBlobLoading(false);
         })
         .catch(err => {
@@ -66,11 +68,11 @@ export const ResumeViewer: React.FC = () => {
     }
 
     return () => {
-      if (blobUrl) {
-        URL.revokeObjectURL(blobUrl);
+      if (activeBlobUrl) {
+        URL.revokeObjectURL(activeBlobUrl);
       }
     };
-  }, [originalPdfUrl, blobUrl]);
+  }, [originalPdfUrl]);
 
   if (isLoading) {
     return (
