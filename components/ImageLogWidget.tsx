@@ -29,7 +29,7 @@ export const ImageLogWidget: React.FC<ImageLogWidgetProps> = ({
   const { data: imageLogData = [], isLoading } = useQuery({
     queryKey: ['imageLog'],
     queryFn: async () => {
-      const result = await sanityClient.fetch(`*[_type == "imageLog"]`);
+      const result = await sanityClient.fetch(`*[_type == "imageLog"] | order(_createdAt desc)`);
       return result as MediaItem[];
     }
   });
