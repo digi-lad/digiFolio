@@ -25,14 +25,6 @@ export const ResumeViewer: React.FC = () => {
     }
   });
 
-  if (isLoading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <span className={styles.loadingText}>[FETCHING SECURE DOCUMENT...]</span>
-      </div>
-    );
-  }
-
   // Fallback to legacy single resumeUrl if the resumes array isn't populated yet
   let resumes: ResumeType[] = profileData?.resumes || [];
   if (resumes.length === 0) {
@@ -51,7 +43,6 @@ export const ResumeViewer: React.FC = () => {
     embedUrl = embedUrl.replace("/view?usp=sharing", "/preview");
   }
 
-  // Fetch Sanity PDFs as blobs to guarantee Native Viewer bypasses any CSP
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
   const [isBlobLoading, setIsBlobLoading] = useState(false);
 
@@ -79,7 +70,15 @@ export const ResumeViewer: React.FC = () => {
         URL.revokeObjectURL(blobUrl);
       }
     };
-  }, [originalPdfUrl]);
+  }, [originalPdfUrl, blobUrl]);
+
+  if (isLoading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <span className={styles.loadingText}>[FETCHING SECURE DOCUMENT...]</span>
+      </div>
+    );
+  }
 
   const displayUrl = blobUrl || embedUrl;
 
