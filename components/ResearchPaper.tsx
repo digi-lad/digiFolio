@@ -18,18 +18,22 @@ const detectMediaType = (item: { url: string; filename: string }): 'image' | 'vi
   return hasVideoExtension ? 'video' : 'image';
 };
 
+import { useQuery } from '@tanstack/react-query';
+import { sanityClient } from '../helpers/sanity';
+
 interface ResearchPaperProps {
-  title: string;
-  field: string;
-  date: string;
-  abstract: string;
-  methodology: string[];
-  keyFindings: string[];
+  researchTitle?: string;
+  title?: string;
+  field?: string;
+  date?: string;
+  abstract?: string;
+  methodology?: string[];
+  keyFindings?: string[];
   images?: Array<{
     filename: string;
     url: string;
   }>;
-  resources: Array<{
+  resources?: Array<{
     label: string;
     url: string;
   }>;
@@ -86,17 +90,21 @@ const ImageThumbnail: React.FC<{ image: { url: string; filename: string }, onCli
     );
 };
 
-export const ResearchPaper: React.FC<ResearchPaperProps> = ({
-  title,
-  field,
-  date,
-  abstract,
-  methodology,
-  keyFindings,
-  images,
-  resources,
-  className,
-}) => {
+export const ResearchPaper: React.FC<ResearchPaperProps> = (props) => {
+  const { researchTitle } = props;
+
+  const { data: sanityData, isLoading } = useQuery({
+    queryKey: ['researchProject', researchTitle],
+    queryFn: async () => {
+      if (!researchTitle) return null;
+      return sanityClient.fetch(
+        `*[_type == "researchProject" && title == $researchTitle][0]`,
+        { researchTitle }
+      );
+    },
+    enabled: !!researchTitle,
+  });
+
   const [lightboxState, setLightboxState] = useState<{ isOpen: boolean; index: number }>({ isOpen: false, index: 0 });
 
   const openLightbox = (index: number) => {
@@ -106,6 +114,40 @@ export const ResearchPaper: React.FC<ResearchPaperProps> = ({
   const closeLightbox = () => {
     setLightboxState({ isOpen: false, index: 0 });
   };
+
+  if (researchTitle && isLoading) {
+    return (
+      <div className={`${styles.container} ${props.className ?? ''}`}>
+        <header className={styles.header}>
+          <div className={styles.headerLine}>
+            <span><span className={styles.headerLabel}>FETCHING DATA FROM SANITY...</span></span>
+          </div>
+        </header>
+        <main className={styles.content}>
+          <Skeleton style={{ height: 200, width: '100%', marginBottom: 16 }} />
+          <Skeleton style={{ height: 100, width: '100%' }} />
+        </main>
+      </div>
+    );
+  }
+
+  const data = sanityData || props;
+
+  if (!data || !data.title) {
+     return <div className={styles.container}>ERROR: Project Not Found.</div>;
+  }
+
+  const {
+    title,
+    field,
+    date,
+    abstract,
+    methodology = [],
+    keyFindings = [],
+    images = [],
+    resources = [],
+    className,
+  } = data as any;
 
   return (
     <div className={`${styles.container} ${className ?? ''}`}>

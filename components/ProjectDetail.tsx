@@ -18,18 +18,22 @@ const detectMediaType = (item: { url: string; filename: string }): 'image' | 'vi
   return hasVideoExtension ? 'video' : 'image';
 };
 
+import { useQuery } from '@tanstack/react-query';
+import { sanityClient } from '../helpers/sanity';
+
 interface ProjectDetailProps {
-  project: string;
-  role: string;
-  status: 'COMPLETED' | 'ACTIVE' | 'ONGOING';
-  timeframe: string;
-  directives: string;
-  kernelLog: Array<{
+  projectName?: string;
+  project?: string;
+  role?: string;
+  status?: 'COMPLETED' | 'ACTIVE' | 'ONGOING';
+  timeframe?: string;
+  directives?: string;
+  kernelLog?: Array<{
     date: string;
     action: string;
     desc?: string;
   }>;
-  metrics: Array<{
+  metrics?: Array<{
     label: string;
     value: string;
   }>;
@@ -44,7 +48,7 @@ interface ProjectDetailProps {
   className?: string;
 }
 
-const KernelLogEntry: React.FC<{ log: ProjectDetailProps['kernelLog'][0] }> = ({ log }) => {
+const KernelLogEntry: React.FC<{ log: NonNullable<ProjectDetailProps['kernelLog']>[0] }> = ({ log }) => {
   const [isDescOpen, setIsDescOpen] = useState(false);
 
   if (!log.desc) {
@@ -95,7 +99,8 @@ const CollapsibleSection: React.FC<{ title: string; children: React.ReactNode }>
   );
 };
 
-const StatusBadge: React.FC<{ status: 'COMPLETED' | 'ACTIVE' | 'ONGOING' }> = ({ status }) => {
+const StatusBadge: React.FC<{ status: 'COMPLETED' | 'ACTIVE' | 'ONGOING' | undefined }> = ({ status }) => {
+  if (!status) return null;
   if (status === 'COMPLETED') {
     return <span className={`${styles.statusBadge} ${styles.completed}`}><CheckCircle2 size={14} /> COMPLETED</span>;
   }
@@ -137,18 +142,21 @@ const ImageThumbnail: React.FC<{ image: { url: string; filename: string }, onCli
     );
 };
 
-export const ProjectDetail: React.FC<ProjectDetailProps> = ({
-  project,
-  role,
-  status,
-  timeframe,
-  directives,
-  kernelLog,
-  metrics,
-  images,
-  accessPoints,
-  className,
-}) => {
+export const ProjectDetail: React.FC<ProjectDetailProps> = (props) => {
+  const { projectName } = props;
+
+  const { data: sanityData, isLoading } = useQuery({
+    queryKey: ['leadershipProject', projectName],
+    queryFn: async () => {
+      if (!projectName) return null;
+      return sanityClient.fetch(
+        `*[_type == "leadershipProject" && project == $projectName][0]`,
+        { projectName }
+      );
+    },
+    enabled: !!projectName,
+  });
+
   const [lightboxState, setLightboxState] = useState<{ isOpen: boolean; index: number }>({ isOpen: false, index: 0 });
 
   const openLightbox = (index: number) => {
@@ -158,6 +166,41 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
   const closeLightbox = () => {
     setLightboxState({ isOpen: false, index: 0 });
   };
+
+  if (projectName && isLoading) {
+    return (
+      <div className={`${styles.container} ${props.className ?? ''}`}>
+        <header className={styles.header}>
+          <div className={styles.headerLine}>
+            <span><span className={styles.headerLabel}>FETCHING DATA FROM SANITY...</span></span>
+          </div>
+        </header>
+        <main className={styles.content}>
+          <Skeleton style={{ height: 200, width: '100%', marginBottom: 16 }} />
+          <Skeleton style={{ height: 100, width: '100%' }} />
+        </main>
+      </div>
+    );
+  }
+
+  const data = sanityData || props;
+
+  if (!data || !data.project) {
+     return <div className={styles.container}>ERROR: Project Not Found.</div>;
+  }
+
+  const {
+    project,
+    role,
+    status,
+    timeframe,
+    directives,
+    kernelLog = [],
+    metrics = [],
+    images = [],
+    accessPoints = [],
+    className,
+  } = data as any;
 
   return (
     <div className={`${styles.container} ${className ?? ''}`}>

@@ -1,7 +1,7 @@
 import React from "react";
 import { DesktopIcon } from "../components/DesktopIcon";
 import { ImageLogGrid } from "../components/ImageLogGrid";
-import { imageLogData } from "../components/ImageLogWidget";
+
 import { AchievementTimeline } from "../components/AchievementTimeline";
 import { ProjectDetail } from "../components/ProjectDetail";
 import { ProjectShowcase } from "../components/ProjectShowcase";
@@ -11,9 +11,9 @@ import { OperatorAssistantContent } from "../components/OperatorAssistantContent
 import { SecureComms } from "../components/SecureComms";
 import { ShortestPathGame } from "../components/ShortestPathGame";
 import { VideoPlayer } from "../components/VideoPlayer";
-import { PROFILE_DATA } from "../helpers/profileData";
-import { ACHIEVEMENTS_DATA } from "../helpers/achievementsData";
-import { CONTACT_CHANNELS } from "../helpers/contactData";
+
+
+
 import { ICON_URLS } from "./iconUrls";
 import { FOLDER_CONTENTS } from "./folderContents";
 import { PROJECT_DATA } from "./projectsData";
@@ -115,7 +115,7 @@ const windows: Record<WindowId, WindowConfig> = {
     id: "AGENT_PROFILE",
     title: "Operator Dossier",
     content: () => (
-      <OperatorDossier {...PROFILE_DATA} gallery={PROFILE_DATA.gallery} />
+      <OperatorDossier />
     ),
     initialPosition: { x: 300, y: 35 },
     initialSize: { width: 800, height: 610 },
@@ -123,14 +123,14 @@ const windows: Record<WindowId, WindowConfig> = {
   ACHIEVEMENTS: {
     id: "ACHIEVEMENTS",
     title: "Honors and Awards",
-    content: () => <AchievementTimeline achievementsData={ACHIEVEMENTS_DATA} />,
+    content: () => <AchievementTimeline />,
     initialPosition: { x: 200, y: 100 },
     initialSize: { width: 800, height: 600 },
   },
   SECURE_COMMS: {
     id: "SECURE_COMMS",
     title: "Contact",
-    content: () => <SecureComms channels={CONTACT_CHANNELS} />,
+    content: () => <SecureComms />,
     initialPosition: { x: 200, y: 150 },
     initialSize: { width: 800, height: 500 },
   },
@@ -162,7 +162,7 @@ const windows: Record<WindowId, WindowConfig> = {
   IMAGE_LOG: {
     id: "IMAGE_LOG",
     title: "IMAGE LOG",
-    content: () => <ImageLogGrid images={imageLogData} />,
+    content: () => <ImageLogGrid />,
     initialPosition: { x: 300, y: 100 },
     initialSize: { width: 900, height: 600 },
   },
@@ -170,7 +170,7 @@ const windows: Record<WindowId, WindowConfig> = {
     id: "ScamDetector",
     title: "digiSecure",
     iconId: "ScamDetector",
-    content: () => <ProjectShowcase {...PROJECT_DATA.ScamDetector} />,
+    content: () => <ProjectShowcase projectName={PROJECT_DATA.ScamDetector.name} />,
     initialPosition: { x: 450, y: 100 },
     initialSize: { width: 1050, height: 600 },
   },
@@ -178,7 +178,7 @@ const windows: Record<WindowId, WindowConfig> = {
     id: "GNN_Vulnerability",
     title: "Research: Vulnerability of Graph Neural Networks",
     iconId: "GNN_Vulnerability",
-    content: () => <ResearchPaper {...PROJECT_DATA.GNN_Vulnerability} />,
+    content: () => <ResearchPaper researchTitle={PROJECT_DATA.GNN_Vulnerability.title} />,
     initialPosition: { x: 500, y: 150 },
     initialSize: { width: 1050, height: 600 },
   },
@@ -186,7 +186,7 @@ const windows: Record<WindowId, WindowConfig> = {
     id: "TAVIS_STEM_Lens",
     title: "TAVIS STEM Lens",
     iconId: "TAVIS_STEM_Lens",
-    content: () => <ProjectShowcase {...PROJECT_DATA.TAVIS_STEM_Lens} />,
+    content: () => <ProjectShowcase projectName={PROJECT_DATA.TAVIS_STEM_Lens.name} />,
     initialPosition: { x: 400, y: 120 },
     initialSize: { width: 1050, height: 600 },
   },
@@ -194,7 +194,7 @@ const windows: Record<WindowId, WindowConfig> = {
     id: "digiLQD",
     title: "digiLQD",
     iconId: "digiLQD",
-    content: () => <ProjectShowcase {...PROJECT_DATA.digiLQD} />,
+    content: () => <ProjectShowcase projectName={PROJECT_DATA.digiLQD.name} />,
     initialPosition: { x: 420, y: 140 },
     initialSize: { width: 1050, height: 600 },
   },
@@ -202,7 +202,7 @@ const windows: Record<WindowId, WindowConfig> = {
     id: "digiHere",
     title: "digiHere",
     iconId: "digiHere",
-    content: () => <ProjectShowcase {...PROJECT_DATA.digiHere} />,
+    content: () => <ProjectShowcase projectName={PROJECT_DATA.digiHere.name} />,
     initialPosition: { x: 440, y: 160 },
     initialSize: { width: 1050, height: 600 },
   },
@@ -210,7 +210,7 @@ const windows: Record<WindowId, WindowConfig> = {
     id: "digiCherish",
     title: "digiCherish",
     iconId: "digiCherish",
-    content: () => <ProjectShowcase {...PROJECT_DATA.digiCherish} />,
+    content: () => <ProjectShowcase projectName={PROJECT_DATA.digiCherish.name} />,
     initialPosition: { x: 460, y: 180 },
     initialSize: { width: 1050, height: 600 },
   },
@@ -218,7 +218,7 @@ const windows: Record<WindowId, WindowConfig> = {
     id: "Student_Council",
     title: "Le Quy Don's Student Council - President",
     iconId: "Student_Council",
-    content: () => <ProjectDetail {...PROJECT_DATA.Student_Council} />,
+    content: () => <ProjectDetail projectName={PROJECT_DATA.Student_Council.project} />,
     initialPosition: { x: 550, y: 200 },
     initialSize: { width: 900, height: 500 },
   },
@@ -226,7 +226,7 @@ const windows: Record<WindowId, WindowConfig> = {
     id: "The_Algitect",
     title: "The Algitect - Founder & President",
     iconId: "The_Algitect",
-    content: () => <ProjectDetail {...PROJECT_DATA.The_Algitect} />,
+    content: () => <ProjectDetail projectName={PROJECT_DATA.The_Algitect.project} />,
     initialPosition: { x: 600, y: 250 },
     initialSize: { width: 900, height: 500 },
   },
@@ -234,7 +234,7 @@ const windows: Record<WindowId, WindowConfig> = {
     id: "Green_Vietnam",
     title: "Green Vietnam - Provincial Leader",
     iconId: "Green_Vietnam",
-    content: () => <ProjectDetail {...PROJECT_DATA.Green_Vietnam} />,
+    content: () => <ProjectDetail projectName={PROJECT_DATA.Green_Vietnam.project} />,
     initialPosition: { x: 580, y: 220 },
     initialSize: { width: 900, height: 500 },
   },

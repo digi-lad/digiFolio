@@ -1,18 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styles from "./OperatorDossier.module.css";
 import { ImageLightbox } from "./ImageLightbox";
+import { useQuery } from '@tanstack/react-query';
+import { sanityClient } from '../helpers/sanity';
 
 interface OperatorDossierProps {
-  name: string;
-  education: string;
-  sat: string;
-  ielts: string;
-  bio: string;
-  avatarUrl?: string;
-  gallery?: Array<{
-    filename: string;
-    url: string;
-  }>;
   className?: string;
 }
 
@@ -33,7 +25,7 @@ const useTypingEffect = (lines: string[], typingSpeed: number = 30) => {
         return;
       }
 
-      const currentLine = lines[lineIndex];
+      const currentLine = lines[lineIndex] || "";
       if (charIndex < currentLine.length) {
         setDisplayedLines((prev) => {
           const newLines = [...prev];
@@ -58,15 +50,22 @@ const useTypingEffect = (lines: string[], typingSpeed: number = 30) => {
 };
 
 export const OperatorDossier: React.FC<OperatorDossierProps> = ({
-  name,
-  education,
-  sat,
-  ielts,
-  bio,
-  avatarUrl,
-  gallery,
   className,
 }) => {
+  const { data: profile, isLoading } = useQuery({
+    queryKey: ['profile'],
+    queryFn: async () => {
+      return sanityClient.fetch(`*[_type == "profile"][0]`);
+    }
+  });
+
+  const name = profile?.name || "";
+  const education = profile?.education || "";
+  const sat = profile?.sat || "";
+  const ielts = profile?.ielts || "";
+  const bio = profile?.bio || "";
+  const avatarUrl = profile?.avatarUrl;
+  const gallery = profile?.gallery;
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxStartIndex, setLightboxStartIndex] = useState(0);
   const linesToType = useMemo(() => {
@@ -129,6 +128,16 @@ export const OperatorDossier: React.FC<OperatorDossierProps> = ({
       </>
     );
   };
+
+  if (isLoading) {
+    return (
+      <div className={`${styles.container} ${className ?? ""}`}>
+        <header className={styles.header}>
+          <span className={styles.clearanceBadge}>[FETCHING FROM SANITY...]</span>
+        </header>
+      </div>
+    );
+  }
 
   return (
     <div className={`${styles.container} ${className ?? ""}`}>

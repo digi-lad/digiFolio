@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { sanityClient } from '../helpers/sanity';
 import { ImageLightbox } from './ImageLightbox';
 import { detectMediaType } from '../helpers/mediaTypeDetection';
 import styles from './ImageLogGrid.module.css';
@@ -11,11 +13,18 @@ interface MediaItem {
 }
 
 interface ImageLogGridProps {
-  images: MediaItem[];
   className?: string;
 }
 
-export const ImageLogGrid: React.FC<ImageLogGridProps> = ({ images, className }) => {
+export const ImageLogGrid: React.FC<ImageLogGridProps> = ({ className }) => {
+  const { data: images = [], isLoading } = useQuery({
+    queryKey: ['imageLog'],
+    queryFn: async () => {
+      const result = await sanityClient.fetch(`*[_type == "imageLog"]`);
+      return result as MediaItem[];
+    }
+  });
+
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -27,6 +36,10 @@ export const ImageLogGrid: React.FC<ImageLogGridProps> = ({ images, className })
   const closeLightbox = () => {
     setLightboxOpen(false);
   };
+
+  if (isLoading) {
+    return <div className={`${styles.gridContainer} ${className ?? ''}`}>LOADING DATA FROM SANITY...</div>;
+  }
 
   return (
     <>

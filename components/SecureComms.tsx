@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef, ReactNode } from 'react';
 import { Mail, Phone, Linkedin, Github, Instagram, Facebook } from 'lucide-react';
 import styles from './SecureComms.module.css';
 
+import { useQuery } from '@tanstack/react-query';
+import { sanityClient } from '../helpers/sanity';
+
 export interface Channel {
   id: string;
   label: string;
@@ -12,7 +15,6 @@ export interface Channel {
 }
 
 interface SecureCommsProps {
-  channels: Channel[];
   className?: string;
 }
 
@@ -35,7 +37,28 @@ const ProgressBar: React.FC<{ progress: number }> = ({ progress }) => {
   );
 };
 
-export const SecureComms: React.FC<SecureCommsProps> = ({ channels, className }) => {
+const ICON_MAP: Record<string, ReactNode> = {
+  email: <Mail size={18} />,
+  phone: <Phone size={18} />,
+  linkedin: <Linkedin size={18} />,
+  github: <Github size={18} />,
+  instagram: <Instagram size={18} />,
+  facebook: <Facebook size={18} />
+};
+
+export const SecureComms: React.FC<SecureCommsProps> = ({ className }) => {
+  const { data: channels = [], isLoading } = useQuery({
+    queryKey: ['contactChannels'],
+    queryFn: async () => {
+      const result = await sanityClient.fetch(`*[_type == "profile"][0].contactChannels`);
+      if (!result) return [];
+      return result.map((c: any) => ({
+        ...c,
+        icon: ICON_MAP[c.icon] || <Mail size={18} />
+      }));
+    }
+  });
+
   const [selectedChannelId, setSelectedChannelId] = useState<string | null>(null);
   const [terminalLines, setTerminalLines] = useState<TerminalLine[]>([
     { id: 0, text: '// SELECT CHANNEL TO INITIATE CONTACT', type: 'info' },

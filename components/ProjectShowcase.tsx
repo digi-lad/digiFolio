@@ -18,14 +18,18 @@ const detectMediaType = (item: { url: string; filename: string }): 'image' | 'vi
   return hasVideoExtension ? 'video' : 'image';
 };
 
+import { useQuery } from '@tanstack/react-query';
+import { sanityClient } from '../helpers/sanity';
+
 interface ProjectShowcaseProps {
-  name: string;
-  type: string;
-  status: 'COMPLETED' | 'ACTIVE' | 'ONGOING';
-  timeframe: string;
-  bootSequence: string;
-  sysSpecs: string[];
-  buildLog: Array<{
+  projectName?: string;
+  name?: string;
+  type?: string;
+  status?: 'COMPLETED' | 'ACTIVE' | 'ONGOING';
+  timeframe?: string;
+  bootSequence?: string;
+  sysSpecs?: string[];
+  buildLog?: Array<{
     title: string;
     desc?: string;
   }>;
@@ -33,7 +37,7 @@ interface ProjectShowcaseProps {
     filename: string;
     url: string;
   }>;
-  accessPoints: Array<{
+  accessPoints?: Array<{
     label: string;
     url: string;
   }>;
@@ -131,18 +135,21 @@ const ImageThumbnail: React.FC<{ image: { url: string; filename: string }, onCli
     );
 };
 
-export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
-  name,
-  type,
-  status,
-  timeframe,
-  bootSequence,
-  sysSpecs,
-  buildLog,
-  images,
-  accessPoints,
-  className,
-}) => {
+export const ProjectShowcase: React.FC<ProjectShowcaseProps> = (props) => {
+  const { projectName } = props;
+
+  const { data: sanityData, isLoading } = useQuery({
+    queryKey: ['project', projectName],
+    queryFn: async () => {
+      if (!projectName) return null;
+      return sanityClient.fetch(
+        `*[_type == "project" && name == $projectName][0]`,
+        { projectName }
+      );
+    },
+    enabled: !!projectName,
+  });
+
   const [lightboxState, setLightboxState] = useState<{ isOpen: boolean; index: number }>({ isOpen: false, index: 0 });
 
   const openLightbox = (index: number) => {
@@ -152,6 +159,41 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
   const closeLightbox = () => {
     setLightboxState({ isOpen: false, index: 0 });
   };
+
+  if (projectName && isLoading) {
+    return (
+      <div className={`${styles.container} ${props.className ?? ''}`}>
+        <header className={styles.header}>
+          <div className={styles.headerLine}>
+            <span><span className={styles.headerLabel}>FETCHING DATA FROM SANITY...</span></span>
+          </div>
+        </header>
+        <main className={styles.content}>
+          <Skeleton style={{ height: 200, width: '100%', marginBottom: 16 }} />
+          <Skeleton style={{ height: 100, width: '100%' }} />
+        </main>
+      </div>
+    );
+  }
+
+  const project = sanityData || props;
+
+  if (!project || !project.name) {
+     return <div className={styles.container}>ERROR: Project Not Found.</div>;
+  }
+
+  const {
+    name,
+    type,
+    status,
+    timeframe,
+    bootSequence,
+    sysSpecs = [],
+    buildLog = [],
+    images = [],
+    accessPoints = [],
+    className,
+  } = project as any;
 
   return (
     <div className={`${styles.container} ${className ?? ''}`}>

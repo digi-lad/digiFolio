@@ -64,10 +64,19 @@ const getTimestamp = (): string => {
   ].join(":");
 };
 
+import { useQuery } from '@tanstack/react-query';
+import { sanityClient } from '../helpers/sanity';
+
 export const Desktop: React.FC<{
   className?: string;
   onReplayBoot?: () => void;
 }> = ({ className, onReplayBoot }) => {
+  const { data: profileData } = useQuery({
+    queryKey: ['profile'],
+    queryFn: async () => {
+      return sanityClient.fetch(`*[_type == "profile"][0]`);
+    }
+  });
   const [windows, setWindows] = useState<WindowConfig[]>([]);
   const [activeWindowId, setActiveWindowId] = useState<WindowId | null>(null);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
@@ -247,7 +256,13 @@ export const Desktop: React.FC<{
             label={icon.label}
             type={icon.type}
             onClick={() => {
-              if (icon.externalUrl) {
+              if (icon.id === 'CV_LINK') {
+                if (profileData?.resumeUrl) {
+                  window.open(profileData.resumeUrl, "_blank", "noopener,noreferrer");
+                } else if (icon.externalUrl) {
+                  window.open(icon.externalUrl, "_blank", "noopener,noreferrer");
+                }
+              } else if (icon.externalUrl) {
                 window.open(icon.externalUrl, "_blank", "noopener,noreferrer");
               } else {
                 openWindow(icon.id as WindowId);

@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { ChevronDown } from 'lucide-react';
 import styles from './AchievementTimeline.module.css';
+import { useQuery } from '@tanstack/react-query';
+import { sanityClient } from '../helpers/sanity';
 
 import type { Tag, Achievement, YearlyAchievements } from '../helpers/achievementsData';
 
@@ -65,14 +67,35 @@ const AchievementCard: React.FC<{ achievement: Achievement }> = ({ achievement }
 };
 
 interface AchievementTimelineProps {
-  achievementsData: YearlyAchievements;
   className?: string;
 }
 
-export const AchievementTimeline: React.FC<AchievementTimelineProps> = ({ achievementsData, className }) => {
+export const AchievementTimeline: React.FC<AchievementTimelineProps> = ({ className }) => {
   const yearRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  const { data: achievements, isLoading } = useQuery({
+    queryKey: ['achievements'],
+    queryFn: async () => {
+      const result = await sanityClient.fetch(`*[_type == "profile"][0].achievements`);
+      return result || [];
+    }
+  });
+
+  const achievementsData = useMemo(() => {
+    const data: YearlyAchievements = {};
+    if (!achievements) return data;
+    
+    achievements.forEach((ach: any) => {
+      if (!data[ach.year]) data[ach.year] = {};
+      if (!data[ach.year][ach.month]) data[ach.year][ach.month] = [];
+      data[ach.year][ach.month].push(ach);
+    });
+    return data;
+  }, [achievements]);
+
   useEffect(() => {
+    if (isLoading) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -93,7 +116,17 @@ export const AchievementTimeline: React.FC<AchievementTimelineProps> = ({ achiev
         if (ref) observer.unobserve(ref);
       });
     };
-  }, []);
+  }, [achievementsData, isLoading]);
+
+  if (isLoading) {
+    return (
+      <div className={`${styles.timelineContainer} ${className ?? ''}`}>
+        <div style={{ color: 'var(--text-accent)', padding: '20px', fontFamily: 'monospace' }}>
+          FETCHING DATA FROM SANITY...
+        </div>
+      </div>
+    );
+  }
 
   const years = Object.keys(achievementsData).sort((a, b) => parseInt(b) - parseInt(a));
 
@@ -110,14 +143,14 @@ export const AchievementTimeline: React.FC<AchievementTimelineProps> = ({ achiev
             <span>{year}</span>
           </div>
           <div className={styles.monthsContainer}>
-            {Object.entries(achievementsData[year]).map(([month, achievements], monthIndex) => (
+            {Object.entries(achievementsData[year]).map(([month, monthAchievements], monthIndex) => (
               <div key={month} className={styles.monthBranch} style={{ animationDelay: `${monthIndex * 0.1}s` }}>
                 <div className={styles.node} />
                 <div className={styles.branchLine}>
                   <span className={styles.monthLabel}>{month}</span>
                 </div>
                 <div className={styles.cardsContainer}>
-                  {achievements.map((achievement, cardIndex) => (
+                  {monthAchievements.map((achievement, cardIndex) => (
                     <AchievementCard
                       key={cardIndex}
                       achievement={achievement}

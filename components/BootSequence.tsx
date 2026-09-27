@@ -13,22 +13,7 @@ const bootLines = [
   "---",
   "INITIATING DIGILAD. OS [v2.0.25]",
   "---",
-  "LOADING CORE MODULES...",
-  "module_social_responsibility.engine [OK]",
-  "module_resilience_determination.engine [OK]",
-  "---",
-  "INITIALIZING OPERATING PRINCIPLES...",
-  "directive_technological_advancement.exe [ACTIVE]",
-  "directive_secured_AI.exe [ACTIVE]",
-  "protocol_societal_development.sys [ACTIVE]",
-  "directive_empowerment_leadership.dll [ACTIVE]",
-  "protocol_knowledge_sharing.init [ACTIVE]",
-  "---",
-  "RENDERING COMMAND CENTER ...",
-  "---",
-  "BUILD CODE. BUILD SOCIETY.",
-  "---",
-  "WELCOME, DIGILAD.",
+  "WELCOME.",
 ];
 
 // Pauses after section separators (---) in milliseconds
