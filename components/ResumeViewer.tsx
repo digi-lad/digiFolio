@@ -43,31 +43,77 @@ export const ResumeViewer: React.FC = () => {
   }
 
   const selectedResume = resumes[selectedIndex] || resumes[0];
-  let pdfUrl = selectedResume.fileUrl || selectedResume.url || "";
+  let originalPdfUrl = selectedResume.fileUrl || selectedResume.url || "";
   
-  if (pdfUrl.includes("drive.google.com") && pdfUrl.includes("/view")) {
-    pdfUrl = pdfUrl.replace("/view?usp=sharing", "/preview");
+  // Format Google Drive links
+  let embedUrl = originalPdfUrl;
+  if (embedUrl.includes("drive.google.com") && embedUrl.includes("/view")) {
+    embedUrl = embedUrl.replace("/view?usp=sharing", "/preview");
   }
+
+  // Fetch Sanity PDFs as blobs to bypass their restrictive CSP which blocks Chrome's native PDF viewer
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
+  const [isBlobLoading, setIsBlobLoading] = useState(false);
+
+  React.useEffect(() => {
+    if (originalPdfUrl && originalPdfUrl.includes("cdn.sanity.io")) {
+      setIsBlobLoading(true);
+      fetch(originalPdfUrl)
+        .then(res => res.blob())
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          setBlobUrl(url);
+          setIsBlobLoading(false);
+        })
+        .catch(err => {
+          console.error("Failed to fetch PDF blob:", err);
+          setIsBlobLoading(false);
+        });
+    } else {
+      setBlobUrl(null);
+    }
+
+    return () => {
+      if (blobUrl) {
+        URL.revokeObjectURL(blobUrl);
+      }
+    };
+  }, [originalPdfUrl]);
+
+  const displayUrl = blobUrl || embedUrl;
 
   return (
     <div className={styles.container}>
-      {resumes.length > 1 && (
-        <div className={styles.tabs}>
-          {resumes.map((resume, idx) => (
-            <button 
-              key={idx} 
-              className={`${styles.tab} ${selectedIndex === idx ? styles.activeTab : ''}`}
-              onClick={() => setSelectedIndex(idx)}
-            >
-              {resume.type}
-            </button>
-          ))}
+      <div className={styles.header}>
+        {resumes.length > 1 && (
+          <div className={styles.tabs}>
+            {resumes.map((resume, idx) => (
+              <button 
+                key={idx} 
+                className={`${styles.tab} ${selectedIndex === idx ? styles.activeTab : ''}`}
+                onClick={() => setSelectedIndex(idx)}
+              >
+                {resume.type}
+              </button>
+            ))}
+          </div>
+        )}
+        <div className={styles.headerActions}>
+          <a href={originalPdfUrl} target="_blank" rel="noopener noreferrer" className={styles.downloadButton}>
+            Download PDF
+          </a>
         </div>
-      )}
+      </div>
       <div className={styles.iframeWrapper}>
-        <object data={pdfUrl} type="application/pdf" className={styles.iframe} aria-label={`Resume - ${selectedResume.type}`}>
-          <p className={styles.fallbackText}>Your browser does not support viewing PDFs natively. <a href={pdfUrl} target="_blank" rel="noopener noreferrer">Click here to download it</a>.</p>
-        </object>
+        {isBlobLoading ? (
+           <div className={styles.loadingContainer}>
+             <span className={styles.loadingText}>[INITIALIZING NATIVE VIEWER...]</span>
+           </div>
+        ) : (
+          <object data={displayUrl} type="application/pdf" className={styles.iframe} aria-label={`Resume - ${selectedResume.type}`}>
+            <p className={styles.fallbackText}>Your browser does not support viewing PDFs natively. <a href={originalPdfUrl} target="_blank" rel="noopener noreferrer">Click here to download it</a>.</p>
+          </object>
+        )}
       </div>
     </div>
   );
