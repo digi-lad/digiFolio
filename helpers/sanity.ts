@@ -4,7 +4,7 @@ import imageUrlBuilder from '@sanity/image-url';
 export const sanityClient = createClient({
   projectId: 'vlmaq5o3', // Extracted from your sanity configuration
   dataset: 'production',
-  useCdn: false, // Set to false to ensure fresh data every time
+  useCdn: true, // `false` if you want to ensure fresh data every time
   apiVersion: '2023-05-03', // use current date (YYYY-MM-DD) to target the latest API version
 });
 
